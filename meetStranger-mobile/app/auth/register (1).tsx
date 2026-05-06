@@ -19,12 +19,13 @@ export default function Register() {
       <ScrollView 
         contentContainerStyle={styles.content}
         showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps="handled"
       >
-        <Image 
-          source={require('../../assets/logo-escudo.png')} 
-          style={styles.logo}
-          resizeMode="contain"
-        />
+      <Image 
+      source={require('../../assets/TalkingLogo.png')} 
+      style={styles.logo}
+      resizeMode="contain"
+      />
 
         <Text style={styles.title}>Criar conta</Text>
         <Text style={styles.subtitle}>Junte-se ao Talking Topic</Text>

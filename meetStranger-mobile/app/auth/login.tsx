@@ -30,7 +30,7 @@ export default function Login() {
     
     setLoading(true);
     try {
-      console.log('Tentando login com:', email);
+      // Simulação de login
       router.replace('/home');
     } catch (error) {
       Alert.alert('Erro', 'Ocorreu um erro ao tentar fazer login.');
@@ -54,11 +54,12 @@ export default function Login() {
       >
         <View style={styles.content}>
           <View style={styles.glassCard}>
-            <Image 
-              source={require('../../assets/logo-escudo.png')} 
-              style={styles.logo} 
-              resizeMode='contain'
-            />
+            {/* Certifique-se que o nome do arquivo na pasta assets é logo-escudo.png */}
+      <Image 
+       source={require('../../assets/TalkingLogo.png')} 
+       style={styles.logo} 
+       resizeMode='contain'
+      />
 
             <Text style={styles.title}>Talking Topic</Text>
             <Text style={styles.subtitle}>Faça login para continuar</Text>
@@ -71,7 +72,6 @@ export default function Login() {
                 keyboardType="email-address"
                 autoCapitalize='none'
                 placeholder='seu@email.com'
-                placeholderTextColor="rgba(255, 255, 255, 0.4)"
               />
               
               <Input
@@ -80,7 +80,6 @@ export default function Login() {
                 onChangeText={setPassword}
                 secureTextEntry
                 placeholder='********'
-                placeholderTextColor="rgba(255, 255, 255, 0.4)"
               />
             </View>
 
