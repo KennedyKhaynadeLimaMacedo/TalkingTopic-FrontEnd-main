@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 export const chatSelectStyles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FAFAFA',
+    backgroundColor: '#0D1117',
     padding: 24,
     paddingTop: 60,
   },
@@ -14,28 +14,23 @@ export const chatSelectStyles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#1E293B',
+    color: '#FFFFFF',
     marginBottom: 8,
   },
   subtitle: {
     fontSize: 16,
-    color: '#64748B',
+    color: '#A0AEC0',
   },
   categoryContainer: {
     gap: 16,
   },
   categoryCard: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: 'rgba(255, 255, 255, 0.05)',
     padding: 20,
     borderRadius: 16,
     borderWidth: 1,
-    borderColor: '#E2E8F0',
+    borderColor: 'rgba(255, 255, 255, 0.1)',
     alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
   },
   icon: {
     fontSize: 32,
@@ -44,12 +39,12 @@ export const chatSelectStyles = StyleSheet.create({
   name: {
     fontSize: 18,
     fontWeight: '700',
-    color: '#3B82F6',
+    color: '#4ADE80',
     marginBottom: 4,
   },
   description: {
     fontSize: 14,
-    color: '#64748B',
+    color: '#A0AEC0',
     textAlign: 'center',
   },
   footer: {

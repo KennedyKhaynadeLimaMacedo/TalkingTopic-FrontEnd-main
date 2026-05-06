@@ -38,7 +38,7 @@ export default function Register() {
 
         <Button 
           title="CADASTRAR" 
-          onPress={() => {}} 
+          onPress={() => router.replace('/home')} 
           variant="primary"
           fullWidth
           style={styles.registerButton}
