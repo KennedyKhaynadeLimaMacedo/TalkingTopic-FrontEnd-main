@@ -8,6 +8,9 @@ export interface ChatMessage {
     id: string;
     text: string;
     isUser: boolean;
+    // 'me' | 'partner' | 'system'
+    // Usado pelo ChatMessage component para decidir lado da bolha
+    sender: 'me' | 'partner' | 'system';
     timestamp: Date;
     UserName: string;
 }
