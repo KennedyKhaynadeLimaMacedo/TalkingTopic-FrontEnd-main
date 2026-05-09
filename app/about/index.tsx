@@ -1,65 +1,101 @@
-import { Text, View, ScrollView, TouchableOpacity } from 'react-native';
 import React from 'react';
+import { Text, View, ScrollView, TouchableOpacity, StatusBar } from 'react-native';
 import { router } from 'expo-router';
-import { aboutStyles as styles } from '../../styles/screens/aboutStyles';
+import { aboutStyles as styles } from '../../styles/liquidGlass';
 
 export default function About() {
-  return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.content}>
-      <View style={styles.header}>
-        <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
-          <Text style={styles.backText}>{"< Voltar"}</Text>
-        </TouchableOpacity>
-        <Text style={styles.title}>Sobre o App MeetStranger</Text>
-      </View>
+    return (
+        <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+            <StatusBar barStyle="light-content" />
+            <View style={styles.content}>
 
-      <View>
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>🎭 O que é o MeetStranger</Text>
-          <Text style={styles.text}>
-            O MeetStranger é um aplicativo de encontros privados que conecta pessoas de todo mundo para conversas casuais e divertidas.
-            Com uma interface simples e intuitiva, o MeetStranger permite que os usuários se conectem com outras pessoas de forma segura, proporcionando uma experiência única de socialização online.
-          </Text>
-        </View>
+                <TouchableOpacity style={styles.backBtn} onPress={() => router.back()}>
+                    <Text style={styles.backText}>←</Text>
+                </TouchableOpacity>
 
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>🔐 Privacidade</Text>
-          <Text style={styles.text}>Sua Privacidade é nossa prioridade</Text>
-          <Text style={styles.listItem}>• Não coletamos dados pessoais</Text>
-          <Text style={styles.listItem}>• Você pode sair a qualquer momento</Text>
-          <Text style={styles.listItem}>• Não armazenamos suas mensagens</Text>
-          <Text style={styles.text}>Projeto inspirado no antigo OMEGLE</Text>
-        </View>
+                <Text style={styles.pageTitle}>Sobre o{'\n'}Talking-X</Text>
 
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>🌐 Como funciona</Text>
-          <Text style={styles.listItem}>1. Escolha um tópico para iniciar a conversa (filmes, Jogos, Séries)</Text>
-          <Text style={styles.listItem}>2. Seja conectado com alguém que compartilha do mesmo interesse que o seu</Text>
-          <Text style={styles.listItem}>3. Converse Livremente sobre o tema escolhido</Text>
-          <Text style={styles.listItem}>4. Caso não esteja gostando da conversa você pode se conectar com outro Parceiro</Text>
-        </View>
+                {/* O que é */}
+                <View style={styles.section}>
+                    <View style={styles.sectionAccent} />
+                    <Text style={styles.sectionTitle}>🎭 O que é o Talking-X</Text>
+                    <Text style={styles.text}>
+                        O Talking-X é um app de chat anônimo que conecta pessoas do mundo todo
+                        para conversas casuais por tópico. Interface moderna, privacidade total
+                        e conexão instantânea.
+                    </Text>
+                </View>
 
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>⚡ Recursos</Text>
-          <Text style={styles.listItem}>1. Chat em tempo Real</Text>
-          <Text style={styles.listItem}>2. Múltiplas escolhas de categorias</Text>
-          <Text style={styles.listItem}>3. Interface simples e intuitiva</Text>
-          <Text style={styles.listItem}>4. Conexão rápida</Text>
-          <Text style={styles.listItem}>5. Totalmente gratuito</Text>
-        </View>
+                {/* Inspiração com chips visuais */}
+                <View style={styles.section}>
+                    <View style={styles.sectionAccent} />
+                    <Text style={styles.sectionTitle}>💡 Inspirado em</Text>
+                    <Text style={styles.text}>O Talking-X une o melhor de dois projetos lendários:</Text>
+                    <View style={styles.inspoRow}>
+                        <View style={styles.inspoChip}>
+                            <View style={[styles.inspoChipDot, { backgroundColor: '#FF6B35' }]} />
+                            <View>
+                                <Text style={styles.inspoChipText}>Omegle</Text>
+                                <Text style={styles.inspoChipSub}>2009–2023 · Chat aleatório</Text>
+                            </View>
+                        </View>
+                        <View style={styles.inspoChip}>
+                            <View style={[styles.inspoChipDot, { backgroundColor: '#A78BFA' }]} />
+                            <View>
+                                <Text style={styles.inspoChipText}>Project-Z</Text>
+                                <Text style={styles.inspoChipSub}>Chat por interesses</Text>
+                            </View>
+                        </View>
+                    </View>
+                </View>
 
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>🖥️ Sobre o desenvolvedor</Text>
-          <Text style={styles.developerName}>Kennedy Khaynã</Text>
-          <Text style={styles.text}>Novo programador mas com pensamentos grandes</Text>
-        </View>
+                {/* Privacidade */}
+                <View style={styles.section}>
+                    <View style={styles.sectionAccent} />
+                    <Text style={styles.sectionTitle}>🔐 Privacidade</Text>
+                    <Text style={styles.listItem}>• Sem coleta de dados pessoais</Text>
+                    <Text style={styles.listItem}>• Mensagens não armazenadas</Text>
+                    <Text style={styles.listItem}>• Saia a qualquer momento</Text>
+                    <Text style={styles.listItem}>• Censura automática de palavrões</Text>
+                </View>
 
-        <View style={styles.section}>
-          <Text style={styles.text}>Projeto inspirado no Projeto Omegle</Text>
-          <Text style={styles.text}>Versão 1.0.0</Text>
-          <Text style={styles.version}>2026 ❤️ Feito com carinho para conectar pessoas</Text>
-        </View>
-      </View>
-    </ScrollView>
-  );
+                {/* Como funciona */}
+                <View style={styles.section}>
+                    <View style={styles.sectionAccent} />
+                    <Text style={styles.sectionTitle}>🌐 Como funciona</Text>
+                    <Text style={styles.listItem}>1. Escolha um tópico: Filmes, Jogos ou Séries</Text>
+                    <Text style={styles.listItem}>2. Match automático com alguém do mesmo interesse</Text>
+                    <Text style={styles.listItem}>3. Converse livremente de forma anônima</Text>
+                    <Text style={styles.listItem}>4. Troque de parceiro quando quiser (↻)</Text>
+                </View>
+
+                {/* Recursos */}
+                <View style={styles.section}>
+                    <View style={styles.sectionAccent} />
+                    <Text style={styles.sectionTitle}>⚡ Recursos</Text>
+                    <Text style={styles.listItem}>1. Chat em tempo real entre 2 pessoas</Text>
+                    <Text style={styles.listItem}>2. 3 categorias de interesse</Text>
+                    <Text style={styles.listItem}>3. Censura automática PT-BR + EN</Text>
+                    <Text style={styles.listItem}>4. Design Liquid Glass — iOS 26</Text>
+                    <Text style={styles.listItem}>5. 100% gratuito e anônimo</Text>
+                </View>
+
+                {/* Dev */}
+                <View style={styles.section}>
+                    <View style={styles.sectionAccent} />
+                    <Text style={styles.sectionTitle}>🖥️ Desenvolvedor</Text>
+                    <Text style={styles.developerName}>Kennedy Khaynã</Text>
+                    <Text style={styles.text}>Novo programador, mas com pensamentos grandes 🚀</Text>
+                </View>
+
+                {/* Rodapé */}
+                <View style={styles.section}>
+                    <View style={styles.sectionAccent} />
+                    <Text style={styles.text}>Versão 1.0.0</Text>
+                    <Text style={styles.version}>2026 ❤️ Feito com carinho para conectar pessoas</Text>
+                </View>
+
+            </View>
+        </ScrollView>
+    );
 }

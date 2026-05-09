@@ -1,91 +1,84 @@
-import React, { useState } from 'react';
-import { 
-  Text, 
-  View, 
-  KeyboardAvoidingView, 
-  Platform, 
-  Image, 
-  StatusBar,
-  ScrollView
+import React, { useState, useRef } from 'react';
+import {
+    View, Text, Image, TouchableOpacity, ScrollView,
+    KeyboardAvoidingView, Platform, StatusBar,
+    TextInput, Animated,
 } from 'react-native';
 import { useRouter } from 'expo-router';
-
-import { Input } from '../../components/Input';
-import { Button } from '../../components/button';
-import { loginStyles as styles } from '../../styles/screens/loginStyles';
+import { authStyles as styles } from '../../styles/liquidGlass';
 
 export default function Login() {
-  const router = useRouter();
-  
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
+    const router = useRouter();
+    const [email, setEmail]       = useState('');
+    const [password, setPassword] = useState('');
+    const [focusedField, setFocusedField] = useState<string | null>(null);
 
-  const handleLogin = async () => {
-    router.replace("/chat/select");
-  };
+    const handleLogin = () => router.replace('/chat/select');
 
-  return (
-    <KeyboardAvoidingView
-      style={styles.container}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      keyboardVerticalOffset={Platform.OS === 'android' ? 20 : 0}
-    >
-      <StatusBar barStyle="light-content" backgroundColor="#0D1117" />
-      
-      <ScrollView 
-        contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}
-        keyboardShouldPersistTaps="handled"
-        showsVerticalScrollIndicator={false}
-      >
-        <View style={styles.content}>
-          <View style={styles.glassCard}>
-            <Image 
-              source={require('../../assets/TalkingLogo.png')} 
-              style={styles.logo} 
-              resizeMode='contain'
-            />
+    return (
+        <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+            <StatusBar barStyle="light-content" />
+            <View style={styles.orb1} />
+            <View style={styles.orb2} />
 
-            <Text style={styles.title}>Talking Topic</Text>
-            <Text style={styles.subtitle}>Faça login para continuar</Text>
+            <ScrollView
+                contentContainerStyle={styles.scrollContent}
+                keyboardShouldPersistTaps="handled"
+                showsVerticalScrollIndicator={false}
+            >
+                <View style={styles.card}>
+                    {/* Logo */}
+                    <View style={styles.logoFrame}>
+                        <Image source={require('../../assets/TalkingLogo.png')} style={styles.logo} resizeMode="contain" />
+                    </View>
+                    <Text style={styles.appName}>TALKING-X</Text>
+                    <Text style={styles.title}>Bem-vindo de volta</Text>
+                    <Text style={styles.subtitle}>Faça login para continuar</Text>
 
-            <View style={styles.inputContainer}>
-              <Input
-                label='Email'
-                value={email}
-                onChangeText={setEmail}
-                keyboardType="email-address"
-                autoCapitalize='none'
-                placeholder='seu@email.com'
-              />
-              
-              <Input
-                label='Senha'
-                value={password}
-                onChangeText={setPassword}
-                secureTextEntry
-                placeholder='********'
-              />
-            </View>
+                    <View style={styles.divider} />
 
-            <Button
-              title='ENTRAR'
-              onPress={handleLogin}
-              variant="primary"
-              fullWidth
-              style={styles.loginButton}
-            />
+                    <View style={styles.inputs}>
+                        {/* Email */}
+                        <View style={styles.inputWrap}>
+                            <Text style={styles.inputLabel}>EMAIL</Text>
+                            <TextInput
+                                style={[styles.inputGlass, focusedField === 'email' && styles.inputFocused]}
+                                value={email}
+                                onChangeText={setEmail}
+                                placeholder="seu@email.com"
+                                placeholderTextColor="rgba(255,255,255,0.25)"
+                                keyboardType="email-address"
+                                autoCapitalize="none"
+                                onFocus={() => setFocusedField('email')}
+                                onBlur={() => setFocusedField(null)}
+                            />
+                        </View>
 
-            <Button
-              title='CADASTRE-SE'
-              onPress={() => router.push('/auth/register')}
-              variant="ghost"
-              fullWidth
-              style={{ marginTop: 8 }}
-              textStyle={{ color: '#4ADE80' }}
-            />
-          </View>
-        </View>
-      </ScrollView>
-    </KeyboardAvoidingView>
-  );
+                        {/* Senha */}
+                        <View style={styles.inputWrap}>
+                            <Text style={styles.inputLabel}>SENHA</Text>
+                            <TextInput
+                                style={[styles.inputGlass, focusedField === 'password' && styles.inputFocused]}
+                                value={password}
+                                onChangeText={setPassword}
+                                placeholder="••••••••"
+                                placeholderTextColor="rgba(255,255,255,0.25)"
+                                secureTextEntry
+                                onFocus={() => setFocusedField('password')}
+                                onBlur={() => setFocusedField(null)}
+                            />
+                        </View>
+                    </View>
+
+                    <TouchableOpacity style={styles.btnPrimary} onPress={handleLogin} activeOpacity={0.8}>
+                        <Text style={styles.btnPrimaryText}>ENTRAR</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={styles.btnGhost} onPress={() => router.push('/auth/register')}>
+                        <Text style={styles.btnGhostText}>Não tem conta? Cadastre-se</Text>
+                    </TouchableOpacity>
+                </View>
+            </ScrollView>
+        </KeyboardAvoidingView>
+    );
 }

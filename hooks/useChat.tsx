@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { ChatMessage } from '../constants/types';
 import { localChat } from '../services/localChat';
+import { censorMessage } from '../utils/censor';
 
 export function useChat(category: string) {
     const [messages, setMessages]           = useState<ChatMessage[]>([]);
@@ -22,11 +23,8 @@ export function useChat(category: string) {
             UserName: 'Sistema',
         });
 
-    // ── Match encontrado ─────────────────────────────────────────
     const handleMatchFound = useCallback((data: {
-        roomId: string;
-        partnerName: string;
-        iAmInitiator: boolean;
+        roomId: string; partnerName: string; iAmInitiator: boolean;
     }) => {
         setCurrentRoomId(data.roomId);
         setIsMatching(false);
@@ -36,17 +34,13 @@ export function useChat(category: string) {
         addSystem(`✅ Parceiro encontrado! Conversando com ${data.partnerName}`);
     }, []);
 
-    // ── Mensagem recebida do parceiro ────────────────────────────
     const handleMessage = useCallback((data: {
-        id: string;
-        text: string;
-        senderId: string;
-        senderName: string;
-        timestamp: string;
+        id: string; text: string; senderId: string; senderName: string; timestamp: string;
     }) => {
         addMsg({
             id: data.id,
-            text: data.text,
+            // Censura a mensagem recebida do parceiro também
+            text: censorMessage(data.text),
             isUser: false,
             sender: 'partner',
             timestamp: new Date(data.timestamp),
@@ -54,7 +48,6 @@ export function useChat(category: string) {
         });
     }, []);
 
-    // ── Parceiro saiu ────────────────────────────────────────────
     const handlePartnerLeft = useCallback(() => {
         setIsConnected(false);
         setCurrentRoomId(null);
@@ -64,38 +57,33 @@ export function useChat(category: string) {
         setTimeout(() => localChat.joinQueue(category), 1500);
     }, [category]);
 
-    // ── Inicializa o chat local ──────────────────────────────────
     useEffect(() => {
         localChat.onMatchFound(handleMatchFound);
         localChat.onMessage(handleMessage);
         localChat.onPartnerLeft(handlePartnerLeft);
-
         setIsMatching(true);
         localChat.joinQueue(category);
-
         return () => {
             localChat.leaveAll();
             localChat.removeAllListeners();
         };
     }, [category]);
 
-    // ── Enviar mensagem ──────────────────────────────────────────
     const sendMessage = (text: string) => {
         if (!text.trim() || !currentRoomId) return;
-
+        // Censura antes de exibir e enviar
+        const clean = censorMessage(text.trim());
         addMsg({
             id: `local_${Date.now()}`,
-            text: text.trim(),
+            text: clean,
             isUser: true,
             sender: 'me',
             timestamp: new Date(),
             UserName: 'Você',
         });
-
-        localChat.sendMessage(text.trim());
+        localChat.sendMessage(clean);
     };
 
-    // ── Buscar novo parceiro ─────────────────────────────────────
     const findNewPartner = () => {
         localChat.leaveAll();
         setIsConnected(false);
@@ -106,13 +94,5 @@ export function useChat(category: string) {
         setTimeout(() => localChat.joinQueue(category), 300);
     };
 
-    return {
-        messages,
-        isConnected,
-        isMatching,
-        partnerName,
-        sendMessage,
-        findNewPartner,
-        myName: localChat.userName,
-    };
+    return { messages, isConnected, isMatching, partnerName, sendMessage, findNewPartner, myName: localChat.userName };
 }
