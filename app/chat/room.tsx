@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import {
-    View, Text, TextInput, FlatList, KeyboardAvoidingView,
-    Platform, TouchableOpacity, SafeAreaView, StatusBar, Animated,
+    View, Text, FlatList,
+    TouchableOpacity, SafeAreaView, StatusBar, Animated,
 } from 'react-native';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import { useChat } from '../../hooks/useChat';
@@ -20,27 +20,10 @@ export default function Room() {
     const selectedCategory = (category as string) || 'movies';
     const categoryInfo = categories.find(c => c.id === selectedCategory.toLowerCase()) || categories[0];
 
-    const [inputText, setInputText] = useState('');
-    const [isFocused, setIsFocused] = useState(false);
     const flatListRef = useRef<FlatList>(null);
 
-    const { messages, isConnected, isMatching, partnerName, sendMessage, findNewPartner } =
+    const { messages, isConnected, isMatching, partnerName, findNewPartner } =
         useChat(selectedCategory);
-
-    // Animação borda do input
-    const focusAnim = useRef(new Animated.Value(0)).current;
-    useEffect(() => {
-        Animated.timing(focusAnim, {
-            toValue: isFocused ? 1 : 0,
-            duration: 200,
-            useNativeDriver: false,
-        }).start();
-    }, [isFocused]);
-
-    const borderColor = focusAnim.interpolate({
-        inputRange: [0, 1],
-        outputRange: ['rgba(255,255,255,0.18)', 'rgba(74,222,128,0.55)'],
-    });
 
     // Animação pulsante enquanto procura
     const pulseAnim = useRef(new Animated.Value(1)).current;
@@ -62,12 +45,6 @@ export default function Room() {
             setTimeout(() => flatListRef.current?.scrollToEnd({ animated: true }), 100);
     }, [messages]);
 
-    const handleSend = () => {
-        if (!inputText.trim() || !isConnected) return;
-        sendMessage(inputText.trim());
-        setInputText('');
-    };
-
     const statusDot   = isConnected ? '●' : isMatching ? '◌' : '○';
     const statusColor = isConnected ? '#4ADE80' : isMatching ? '#FBBF24' : '#6B7280';
     const statusText  = isConnected
@@ -81,10 +58,7 @@ export default function Room() {
             <View style={[styles.glowBall, { top: '8%',  left: '-12%', backgroundColor: '#4ADE8020' }]} />
             <View style={[styles.glowBall, { bottom: '18%', right: '-12%', backgroundColor: '#22d3ee18' }]} />
 
-            <KeyboardAvoidingView
-                style={styles.container}
-                behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-            >
+            <View style={styles.container}>
                 {/* ── Header ── */}
                 <View style={styles.headerGlass}>
                     <TouchableOpacity style={styles.navButtonGlass} onPress={() => router.back()}>
@@ -142,47 +116,7 @@ export default function Room() {
                     }
                 />
 
-                {/* ── Input ── */}
-                <View style={styles.inputAreaGlass}>
-                    <Animated.View style={[styles.inputWrapperGlass, { borderColor }]}>
-                        <TextInput
-                            style={styles.input}
-                            value={inputText}
-                            onChangeText={setInputText}
-                            placeholder={isConnected ? 'Digite sua mensagem...' : 'Aguardando parceiro...'}
-                            placeholderTextColor="rgba(255,255,255,0.3)"
-                            onFocus={() => setIsFocused(true)}
-                            onBlur={() => setIsFocused(false)}
-                            editable={isConnected}
-                            multiline={false}
-                            // Enter envia no mobile e na web
-                            onSubmitEditing={handleSend}
-                            returnKeyType="send"
-                            blurOnSubmit={false}
-                            // Web: Shift+Enter = nova linha, Enter = envia
-                            {...(Platform.OS === 'web' ? {
-                                onKeyPress: (e: any) => {
-                                    if (e.nativeEvent.key === 'Enter' && !e.nativeEvent.shiftKey) {
-                                        e.preventDefault?.();
-                                        handleSend();
-                                    }
-                                },
-                            } : {})}
-                        />
-                        <TouchableOpacity
-                            style={[
-                                styles.sendButton,
-                                (!inputText.trim() || !isConnected) && styles.sendButtonDisabled,
-                            ]}
-                            onPress={handleSend}
-                            disabled={!inputText.trim() || !isConnected}
-                            activeOpacity={0.75}
-                        >
-                            <Text style={styles.sendButtonText}>▶</Text>
-                        </TouchableOpacity>
-                    </Animated.View>
-                </View>
-            </KeyboardAvoidingView>
+            </View>
         </SafeAreaView>
     );
 }
