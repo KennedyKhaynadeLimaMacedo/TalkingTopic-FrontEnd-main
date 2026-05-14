@@ -4,7 +4,7 @@ const { width } = Dimensions.get('window');
 
 export const styles = StyleSheet.create({
 
-    // ── Layout base ────────────────────────────────────────────────
+    // ── Layout base
     safe: {
         flex: 1,
         backgroundColor: '#0D1117',
@@ -13,7 +13,7 @@ export const styles = StyleSheet.create({
         flex: 1,
     },
 
-    // ── Bolas de brilho decorativas ────────────────────────────────
+    // ── Bolas de brilho decorativas
     glowBall: {
         position: 'absolute',
         width: width * 0.65,
@@ -22,7 +22,7 @@ export const styles = StyleSheet.create({
         zIndex: 0,
     },
 
-    // ── Header (glass) ─────────────────────────────────────────────
+    // ── Header (glass)
     headerGlass: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -57,7 +57,7 @@ export const styles = StyleSheet.create({
         fontWeight: '600',
     },
 
-    // ── Botões de navegação (glass) ─────────────────────────────────
+    // ── Botões de navegação (glass)
     navButtonGlass: {
         width: 38,
         height: 38,
@@ -74,13 +74,13 @@ export const styles = StyleSheet.create({
         fontWeight: '600',
     },
 
-    // ── Lista de mensagens ──────────────────────────────────────────
+    // ── Lista de mensagens
     messagesList: {
         paddingVertical: 12,
         flexGrow: 1,
     },
 
-    // ── Estado vazio (sem parceiro ainda) ──────────────────────────
+    // ── Estado vazio (sem parceiro ainda)
     emptyGlass: {
         flex: 1,
         alignItems: 'center',
@@ -94,7 +94,7 @@ export const styles = StyleSheet.create({
         lineHeight: 22,
     },
 
-    // ── Estado de busca de parceiro ─────────────────────────────────
+    // ── Estado de busca de parceiro
     matchingContainer: {
         flex: 1,
         alignItems: 'center',
@@ -132,7 +132,7 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
     },
 
-    // ── Área de input ───────────────────────────────────────────────
+    // ── Área de input
     inputAreaGlass: {
         paddingHorizontal: 12,
         paddingVertical: 10,
@@ -158,7 +158,7 @@ export const styles = StyleSheet.create({
         maxHeight: 100,
     },
 
-    // ── Botão enviar ────────────────────────────────────────────────
+    // ── Botão enviar
     sendButton: {
         width: 36,
         height: 36,

@@ -13,7 +13,7 @@ export default function Login() {
     const [password, setPassword] = useState('');
     const [focusedField, setFocusedField] = useState<string | null>(null);
 
-    const handleLogin = () => router.replace('/chat/select');
+    const handleLogin = () => router.replace('/home');
 
     return (
         <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>

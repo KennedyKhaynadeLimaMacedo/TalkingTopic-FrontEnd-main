@@ -33,17 +33,17 @@ export default function About() {
                     <Text style={styles.text}>O Talking-X une o melhor de dois projetos lendários:</Text>
                     <View style={styles.inspoRow}>
                         <View style={styles.inspoChip}>
-                            <View style={[styles.inspoChipDot, { backgroundColor: '#FF6B35' }]} />
+                            <View style={[styles.inspoChipDot, { backgroundColor: '#A78BFA' }]} />
                             <View>
                                 <Text style={styles.inspoChipText}>Omegle</Text>
-                                <Text style={styles.inspoChipSub}>2009–2023 · Chat aleatório</Text>
+                                <Text style={styles.inspoChipSub}>200-2023 · Chat aleatório</Text>
                             </View>
                         </View>
                         <View style={styles.inspoChip}>
-                            <View style={[styles.inspoChipDot, { backgroundColor: '#A78BFA' }]} />
+                            <View style={[styles.inspoChipDot, { backgroundColor: '#FF6B35' }]} />
                             <View>
                                 <Text style={styles.inspoChipText}>Project-Z</Text>
-                                <Text style={styles.inspoChipSub}>Chat por interesses</Text>
+                                <Text style={styles.inspoChipSub}>2013-2024 · Chat por interesses</Text>
                             </View>
                         </View>
                     </View>
